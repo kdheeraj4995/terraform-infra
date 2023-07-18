@@ -23,7 +23,8 @@ resource "aws_iam_group" "Administrator" {
 
 resource "aws_iam_group_policy_attachment" "admin-policy-attachment" {
   for_each = toset([
-    "arn:aws:iam::aws:policy/AdministratorAccess"
+    "arn:aws:iam::aws:policy/AdministratorAccess",
+    "arn:aws:iam::aws:policy/job-function/Billing"
   ])
   group      = aws_iam_group.Administrator.name
   policy_arn = each.value
