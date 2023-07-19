@@ -1,8 +1,6 @@
 resource "aws_s3_bucket" "terraform-state-bucket" {
-  bucket = "application-infra-terraform-state"
-  tags   = {
-    application: "terraform"
-  }
+  bucket = var.s3-info.application-infra-terraform-state.name
+  tags   = merge(var.tags, var.s3-info.application-infra-terraform-state.bucket-tags)
   lifecycle {
     prevent_destroy = true
   }

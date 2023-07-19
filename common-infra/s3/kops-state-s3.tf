@@ -1,8 +1,6 @@
 resource "aws_s3_bucket" "kops-clusterstate-bucket" {
-  bucket = "kops-k8-cluster-state"
-  tags   = {
-    application: "kops"
-  }
+  bucket = var.s3-info.kops-k8-cluster-state.name
+  tags   = merge(var.tags, var.s3-info.kops-k8-cluster-state.bucket-tags)
   lifecycle {
     prevent_destroy = true
   }
@@ -41,3 +39,4 @@ resource "aws_s3_bucket_policy" "kops-clusters3-bucket-policy" {
   bucket = aws_s3_bucket.kops-clusterstate-bucket.id
   policy = data.aws_iam_policy_document.kops-clusters3-bucket-policy-document.json
 }
+

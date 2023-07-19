@@ -1,3 +1,7 @@
+module "variables" {
+  source = "../variables"
+}
+
 resource "aws_dynamodb_table" "terraform-state-table" {
   name         = "application-infra-terraform-state-lock"
   billing_mode = "PAY_PER_REQUEST"
@@ -8,7 +12,5 @@ resource "aws_dynamodb_table" "terraform-state-table" {
     type = "S"
   }
 
-  tags   = {
-    application: "terraform"
-  }
+  tags   = merge(var.tags, var.local_tags)
 }
